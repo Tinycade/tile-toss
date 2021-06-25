@@ -13,7 +13,7 @@
   "dependencies": {
     "@babel/core": "^7.9.6",
     "@babel/preset-env": "^7.9.6",
-    "aframe": "^1.0.4",
+    "aframe": "^1.1.0",
     "aframe-physics-system": "github:n5ro/aframe-physics-system#eac2ac0e639e8863b3d1e983ac04a682281586aa",
     "babel-loader": "^8.1.0",
     "three": "^0.116.1",
