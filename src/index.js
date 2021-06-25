@@ -1,4 +1,3 @@
-// I'm manually including these globally atm
 import AFRAME, { components } from 'aframe';
 import 'aframe-physics-system';
 // components

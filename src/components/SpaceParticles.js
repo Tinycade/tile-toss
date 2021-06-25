@@ -1,5 +1,5 @@
-// import * as THREE from 'three';
-const THREE = AFRAME.THREE;
+import * as THREE from 'three';
+// const THREE = AFRAME.THREE;
 
 // Some local constants, maybe make this params of the component
 const PARTICLE_COUNT = 1000;
