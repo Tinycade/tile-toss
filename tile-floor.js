@@ -7,30 +7,28 @@ AFRAME.registerComponent('tile-floor', {
   },
   init: function () {
     console.log("In tile-floor component")
-  },
-  update: function () {
-    var offset = this.data.tileRadius * Math.sqrt(3)
-    var pointLen = this.data.tileRadius /2
-    var x = -5;
-    var y = 0;
-    var startingX = -this.data.tileColumnCount* offset/2;
-    var z = -this.data.tileRowCount * (pointLen-this.data.tileRadius);
+    let offset = this.data.tileRadius * Math.sqrt(3)
+    let pointLen = this.data.tileRadius /2
+    let x = -5;
+    let y = 0;
+    let startingX = -this.data.tileColumnCount* offset/2;
+    let z = -this.data.tileRowCount * (pointLen-this.data.tileRadius);
     
-    for(var c=0; c<this.data.tileColumnCount; c++) {
+    for(let c=0; c<this.data.tileColumnCount; c++) {
       if (c % 2 ==0) {
         x = startingX
       }
       else {
         x = startingX - offset/2
       }
-      for(var r=0; r<this.data.tileRowCount; r++) {
-        var tag = document.createElement("a-entity");
+      for(let r=0; r<this.data.tileRowCount; r++) {
+        let tag = document.createElement("a-entity");
         console.log(x,y,z)
         tag.setAttribute("position", x+ " "+ y + " "+ z);
         tag.setAttribute("geometry", "primitive: cylinder; segmentsRadial: 6; radius:"+ this.data.tileRadius + "; height:0.125")  
         tag.setAttribute("id", r.toString()+ c.toString())
         console.log(tag.getAttribute("position"))
-        var element = document.getElementById("floor");
+        let element = document.getElementById("floor");
         element.appendChild(tag);   
         x = x + offset + 0.2
       }
@@ -38,6 +36,7 @@ AFRAME.registerComponent('tile-floor', {
     }
     console.log(element)
   },
+  update: function () {},
   tick: function () {},
   remove: function () {},
   pause: function () {},
