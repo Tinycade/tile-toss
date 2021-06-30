@@ -49,7 +49,7 @@ AFRAME.registerShader('particles', {
     offsetTime: { type: 'array', is: 'attribute' },
     position: { type: 'array', is: 'attribute' },
   },
-
+  
   vertexShader: vert,
   fragmentShader: frag,
 });
