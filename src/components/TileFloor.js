@@ -1,4 +1,5 @@
-const AFRAME = window.AFRAME;
+import AFRAME from 'aframe';
+
 AFRAME.registerComponent('tile-floor', {
   schema: {
     tileColumnCount: {type: 'int', default: 15},

@@ -12,6 +12,7 @@ AFRAME.registerComponent('player-controller', {
 
     this.euler = new THREE.Euler();
 
+    
     // need to wait for the scene to load if I want to do anything with the body
     this.el.sceneEl.addEventListener('loaded', (e) => {
       // ugggg race conditions

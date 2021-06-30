@@ -2,8 +2,7 @@ import AFRAME, { components } from 'aframe';
 import 'aframe-physics-system';
 // components
 
-import './components/PlayerController';
-import './components/SpaceParticles';
+import './components';
 
 
 let scene;
