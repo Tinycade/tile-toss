@@ -3,106 +3,63 @@ AFRAME.registerComponent('shooting-function', {
       velocity: {type: 'int', default: 15}
     },
     init: function () {
-      // this.pause()
       console.log("in init")
-      // this.numThrown = 0;
     },
-    update: function () {
+    udpate: function () {
       console.log("in the update")
       console.log(this.el.object3D.position)
-      // the camera variable holds the position of the object
-      let camera = document.getElementById("boxThing");
-      // changing avatar to the player character will shoot it from them. For now we are shooting from the camera
-      let avatar = document.querySelector('#boxThing').object3D
-      let avatarDir = avatar.getWorldDirection()
-      // console.log(avatarDir)
-      cameraPos = camera.getAttribute('position')
-      // let sceneEl =document.querySelector('a-scene');
-      // let el = sceneEl.querySelector('#yellowBall');
-      console.log(this.el)
-      el = this.el
-      this.el.setAttribute('position', cameraPos)
-      console.log("In update")
-      el.addEventListener('body-loaded', function (event) {
-        console.log("ready freddy")
-        console.log(el.body)
-        if (el.body !== undefined) {
-          console.log(this.object3D.position)
-          console.log("hello thereeeee")
-          el.body.applyImpulse(
-            /* impulse */        new CANNON.Vec3(avatarDir.x, avatarDir.y, -10* avatarDir.z ),
-            /* world position */ new CANNON.Vec3().copy(el.getAttribute('position'))
-            );
-        }
-      });
     },
     tick: function () {
-      // console.log("tick time")
-      // if (this.numThrown === 0) {
-      //   let camera = document.getElementById("boxThing");
-      //   // changing avatar to the player character will shoot it from them. For now we are shooting from the camera
-      //   let avatar = document.querySelector('#boxThing').object3D
-      //   let avatarDir = avatar.getWorldDirection()
-      //   // console.log(avatarDir)
-      //   cameraPos = camera.getAttribute('position')
-      //   // let sceneEl =document.querySelector('a-scene');
-      //   // let el = sceneEl.querySelector('#yellowBall');
-      //   console.log(this.el)
-      //   el = this.el
-      //   this.el.setAttribute('position', cameraPos)
-      //   console.log("tick function")
-      //   el.addEventListener('body-loaded', function (event) {
-      //     console.log("ready freddy")
-      //     if (el.body !== undefined) {
-      //       console.log(this.object3D.position)
-      //       console.log("hello thereeeee")
-      //       el.body.applyImpulse(
-      //         /* impulse */        new CANNON.Vec3(avatarDir.x, avatarDir.y, -10* avatarDir.z ),
-      //         /* world position */ new CANNON.Vec3().copy(el.getAttribute('position'))
-      //         );
-      //     }
-      //   });
-      // }
-      // this.numThrown +=1
-      // let avatar = document.querySelector('[camera]').object3D
-      // let avatarDirection = avatar.getWorldDirection()
-      // // console.log(avatarDirection)
-      // // console.log("hello play time")
-      // // console.log(this.data.velocity)
-      // let camera = document.getElementById("boxThing");
-      // // changing avatar to the player character will shoot it from them. For now we are shooting from the camera
-      // // console.log(avatarDir)
-      // cameraPos = camera.getAttribute('position')
-      // let sceneEl =document.querySelector('a-scene');
-      // el = this.el
-      // this.el.setAttribute('position', cameraPos)
-      // // console.log("In update")
-      // el.addEventListener('body-loaded', function (event) {
-      //   // console.log("ready freddy")
-      //   el.body.applyImpulse(
-      //   /* impulse */        new CANNON.Vec3(avatarDir.x, avatarDir.y, -10 * avatarDir.z),
-      //   /* world position */ new CANNON.Vec3().copy(el.getAttribute('position'))
-      //   );
-      // });
+      // checks for when the ball is below y= -100, then returns it to the pool
+      let sceneEl =document.querySelector('#ball-pool');
+      // console.log(this.el.getAttribute('position').y )
+      if (this.el.getAttribute('position').y <-100) {
+        sceneEl.components.pool__projectile.returnEntity(this.el);
+        console.log("retured!")
+      }
     },
     remove: function () {},
     pause: function () {
       console.log("pause")
     },
     play: function () {
+      // this avatar will eventually be the player character
+      let avatar = document.querySelector('#boxThing').object3D
+      let avatarDir = avatar.getWorldDirection()
+      console.log(avatarDir)
+      currentPosition = this.el.getAttribute('position')
+      console.log(this)
+      el = this.el
+      // this.el.setAttribute('position', cameraPos)
+      let position = [currentPosition.x,currentPosition.y, currentPosition.z ]
+      let unitVecDiv = Math.sqrt(Math.pow(currentPosition.x, 2)+ Math.pow(currentPosition.y, 2) + Math.pow(currentPosition.z, 2))
+      // finds the correct length of each velocity component so that each throw has the same total velocity
+      for (let x = 0; x < 3; x++) {
+        position[x] = position[x]/unitVecDiv * this.data.velocity
+      }
+      console.log(position)
+      // applies the impulse the body (waiting for load isn't necessary since we are calling on pool components which are already loaded)
+      el.body.applyImpulse(
+        /* impulse */        new CANNON.Vec3(avatarDir.x, avatarDir.y, avatarDir.z ),
+                            //  new CANNON.Vec3(1, 1, 1 ),
+        /* world position */ new CANNON.Vec3().copy(el.getAttribute('position'))
+        );
     }
   });
 
 
+  // listens for spacebar to be pressed
 window.addEventListener("keydown", function(e){
   let sceneEl =document.querySelector('#ball-pool');
-  // let el = document.querySelector('#yellowBall')
-  console.log("Let's try this again")
     if(e.keyCode === 32) { // spacebar
+      // takes the entity from the pool
       let el = sceneEl.components.pool__projectile.requestEntity();
-      console.log(el)
-      el.setAttribute('shooting-function', 20)
+      let camera = document.getElementById("boxThing");
+      let cameraPos = camera.getAttribute('position')
+      let currentPos = sceneEl.getAttribute('position')
+      // sets the ball position and rotation to that of the character
+      el.setAttribute('position', (-currentPos.x+cameraPos.x)+" "+(-currentPos.y+cameraPos.y) +" "+ (-currentPos.z + cameraPos.z))
+      el.setAttribute('rotation', camera.getAttribute("rotation"))
       el.play()
-      // sceneEl.components.pool__projectile.returnEntity(el);
     }
 });
