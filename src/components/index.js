@@ -2,3 +2,4 @@
 import './PlayerController';
 import './SpaceParticles';
 import './TileFloor';
+import './Shooting';
