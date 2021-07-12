@@ -1,52 +1,42 @@
 import AFRAME from 'aframe';
+import { Vector3 } from 'three';
 
 AFRAME.registerComponent('tile-select', {
-  schema: {
-  },
   init: function () {
+    this.tileFloor = document.querySelector('#floor');
+
+    this.closestNode = undefined;
   },
-  _update: function () {
-  },
-  get update() {
-    return this._update;
-  },
-  set update(value) {
-    this._update = value;
-  },
+
   tick: function () {
-    let playerPos = this.el.getAttribute('position');
-    let tileFloor = document.querySelector('#floor');
-    // let tileFloor = document.getElementById('floor')
-    let numTiles = tileFloor.childNodes.length
-    // console.log(tileFloor.childNodes.length)
-    // console.log(tileList);
-    let minimum = 10000000000000;
-    let closestNode = tileFloor.childNodes[0]
-    for (let idx = 0; idx < numTiles; idx++) { //but how to not hardcode 15????
-      // console.log(document.querySelector(x.toString()+y.toString()))
+    // assuming this is a sub object, we want the relative world coordinates
+    let playerPos = new Vector3();
+    this.el.object3D.getWorldPosition(playerPos);
+    let numTiles = this.tileFloor.childNodes.length;
+
+    // 1 because we want to cap distance
+    let minimum = 100;
+    this.closestNode = undefined;
+    let currentPos = new Vector3();
+
+    for (let idx = 0; idx < numTiles; idx++) {
       //get tile pos
       //calc distance between player and tile, update min
-      let current = tileFloor.childNodes[idx]
-      current.setAttribute("material", "color: white")
-      let currNode = tileFloor.childNodes[idx].getAttribute('position')
-      // let currX = currNode.x
-      // console.log(currNode)
-      // console.log(tileFloor.childNodes[x])
-      let temp = Math.sqrt(Math.pow(playerPos.x-currNode.x, 2) + Math.pow(playerPos.z-currNode.z, 2))
-      // console.log(temp)
+      let currentNode = this.tileFloor.childNodes[idx];
+
+      // MAYBE IN THE FUTURE WE CALL A FUNCTION ON THE TILE COMPONENT
+      // this is fine for now tho
+      currentNode.setAttribute("material", "color: white");
+
+      currentNode.object3D.getWorldPosition(currentPos);
+      let temp = playerPos.distanceToSquared(currentPos);
+
       if (temp < minimum) {
-        minimum = temp
-        closestNode = tileFloor.childNodes[idx]
+        minimum = temp;
+        this.closestNode = currentNode;
       }
-      // console.log(closestNode.getAttribute('id'))
-      // closestNode.setAttribute("color", "red");
-      // closestNode.setAttribute("position", "0.0.0")
     }
-    closestNode.setAttribute("material", "color: red")
-    // console.log(closestNode)
+    
+    if (this.closestNode) this.closestNode.setAttribute("material", "color: red");
   },
-  remove: function () {},
-  pause: function () {},
-  play: function () {
-  }
 });
