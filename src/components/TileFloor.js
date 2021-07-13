@@ -19,7 +19,7 @@ AFRAME.registerComponent('tile-floor', {
         x = startingX
       }
       else {
-        x = startingX - offset/2
+        x = startingX - offset/2- 0.1
       }
       for(let r=0; r<this.data.tileRowCount; r++) {
         let tag = document.createElement("a-entity");

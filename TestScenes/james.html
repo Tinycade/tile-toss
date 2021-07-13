@@ -1,0 +1,19 @@
+<html>
+  <head>
+    <script src="../build/app.js"></script>
+  </head>
+
+  <body>
+    <a-scene physics="debug: false" background="color: #000000">
+      <a-camera wasd-controls="acceleration:40" position="0 10 5"></a-camera>
+      <a-entity space-particles material="shader: particles; transparent: true; alphaTest: 0.5;" position="0 0 0"></a-entity>
+
+      <a-light color="white" position="-1 10 0"></a-light>
+      <a-entity id="floor"  static-body tile-floor="tileColumnCount: 15; tileRowCount: 15, tileRadius: 1" ></a-entity> 
+
+      <a-box dynamic-body player-controller tile-select width="0.75" height="0.75" depth="0.75" position="0 5 0" rotation="0 0 0" color="#ffff00" shadow></a-box>
+
+      
+    </a-scene>
+  </body>
+</html>
