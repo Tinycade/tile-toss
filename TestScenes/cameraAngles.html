@@ -1,0 +1,25 @@
+<html>
+  <head>
+    <script src="../build/app.js"></script>
+  </head>
+
+  <body>
+    <a-scene physics="debug: false" background="color: #000000">
+      <!-- <a-camera look-controls-enabled="false" position="0 10 5"></a-camera> -->
+      <!-- <a-camera look-controls-enabled="false" wasd-controls-enabled="false" position="0 12 5" rotation = "-60 0 0"></a-camera> -->
+      <!-- <a-camera look-controls-enabled="false" wasd-controls-enabled="false" position="0 16 -4" rotation = "-90 0 0"></a-camera> -->
+      <!-- THIS IS THE BEST CAMERA ANGLE 
+                This camera angle is the best for showing all of tiles with the least amount of warping when looking at them
+                Additionally, this perspective maintains the 3d aspect, as opposed to a straight 90 degree view
+                The position of the cameara will shift depenging on the size of the tile floor, but I think this angle is ideal.-->
+      <a-camera look-controls-enabled="false" wasd-controls-enabled="false" position="0 14 2" rotation = "-75 0 0"></a-camera>
+
+      <a-entity space-particles material="shader: particles; transparent: true; alphaTest: 0.5;" position="0 0 0"></a-entity>
+      <a-box dynamic-body player-controller width="0.75" height="0.75" depth="0.75" position="0 5 0" rotation="0 0 0" color="#ffff00" shadow></a-box>
+
+      <a-light color="white" position="-1 10 0"></a-light>
+
+      <a-entity id="floor" static-body tile-floor="tileColumnCount: 15; tileRowCount: 15, tileRadius: 1"></a-entity> 
+    </a-scene>
+  </body>
+</html>
