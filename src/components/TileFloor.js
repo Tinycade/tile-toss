@@ -4,7 +4,7 @@ AFRAME.registerComponent('tile-floor', {
   schema: {
     tileColumnCount: {type: 'int', default: 15},
     tileRowCount: {type: 'int', default: 15},
-    tileRadius: {type: 'int', default: 1.5}
+    tileRadius: {type: 'float', default: 1}
   },
   init: function () {
     let offset = this.data.tileRadius * Math.sqrt(3)
