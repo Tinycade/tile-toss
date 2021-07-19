@@ -5,3 +5,4 @@ import './TileFloor';
 import './Shooting';
 import './TileSelect';
 import './TilePickup';
+import './EnemyCollision.js';
