@@ -27,8 +27,10 @@ AFRAME.registerComponent('tile-floor', {
         tag.setAttribute("position", x+ " "+ y + " "+ z);
         tag.setAttribute("geometry", "primitive: cylinder; segmentsRadial: 6; radius:"+ this.data.tileRadius + "; height:0.125")  
         tag.setAttribute("static-body", "")  
+        tag.setAttribute("material", "color: #FD86FF" ) // #FD86FF
+        // tag.setAttribute("color", "red")
         tag.setAttribute("id", r.toString()+ c.toString())
-
+        tag.className = "floor"
         let element = document.getElementById("floor");
         element.appendChild(tag);   
         x = x + offset + 0.2

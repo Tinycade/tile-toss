@@ -20,7 +20,7 @@ AFRAME.registerComponent('shooting', {
       currentPosition = this.el.getAttribute('position')
       // console.log(currentPosition)
       el = this.el
-      let position = [avatarDir.x,avatarDir.y+25, avatarDir.z ]
+      let position = [avatarDir.x,avatarDir.y, avatarDir.z ]
       let unitVecDiv = Math.sqrt(Math.pow(currentPosition.x, 2)+ Math.pow(currentPosition.y, 2) + Math.pow(currentPosition.z, 2))
       // finds the correct length of each velocity component so that each throw has the same total velocity
       for (let x = 0; x < 3; x++) {

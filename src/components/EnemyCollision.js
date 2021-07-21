@@ -1,40 +1,43 @@
 import AFRAME from 'aframe';
 
-AFRAME.registerComponent('enemy-collision', {
+AFRAME.registerComponent('collision', {
+  init: function () {
+    this.hitTarget  = false
+    this.hitSelf = false
+    this.enemy = undefined
+  },
+  tock: function () {
+    //check to see if any collision has occured
+    if (this.hitTarget == true){
+      if (this.enemyEntity != null) {
+          this.enemyEntity.parentNode.removeChild(this.enemyEntity);
+          this.enemyEntity = null
+      }
+      this.hitTarget = false
+    }
+    if (this.hitSelf == true) {
+      let sceneEl =document.querySelector('#ball-pool');
+      sceneEl.components.pool__projectile.returnEntity(this.el);
+    }
+  },
   play: function () {
-    let hit = false
-    // check for collision
+    let self = this.el
+    //set event listener for collision
     this.el.addEventListener('collide', function (e) {
-        setTimeout(function() {
-            //if we wanted just enemies to be hit we could make that a component and then only hit enemies
-            //make sure this is the first collision with something besides the player character
-            if (e.detail.body.el != document.querySelector('#playerChar') && e.detail.body.el!= null && hit == false) {
-              //remove both items in the collision and return projectile to pool
-              e.detail.body.el.parentNode.removeChild(e.detail.body.el);
-              let sceneEl =document.querySelector('#ball-pool');
-              sceneEl.components.pool__projectile.returnEntity(this.el);
-              hit = true
+          if (e.detail.body.el.classList.contains('enemy')) {
+            self.components.collision.hitEnemy(e.detail.body.el)
+            self.components.collision.hitFloor()
           }
-        }, 0);
+          if (e.detail.body.el.classList.contains('floor')) {
+            self.components.collision.hitFloor()
+          }
     });
-
-
+  },
+  hitEnemy: function (enemyEntity) {
+    this.hitTarget = true
+    this.enemyEntity = enemyEntity
+  },
+  hitFloor: function () {
+    this.hitSelf = true
   }
 });
-
-
-// AFRAME.registerComponent('enemy', {
-//     schema: {
-//         isEnemy: {type: 'bool', default: false}
-//     },
-//     init: function () {
-//     },
-//     update: function () {
-//     },
-//     tick: function () {},
-//     remove: function () {},
-//     pause: function () {},
-//     play: function () {
-//     }
-//   });
-  

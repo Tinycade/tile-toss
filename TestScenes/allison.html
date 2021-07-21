@@ -10,25 +10,31 @@
         <!-- mixin for pool of balls 
           NOTE: the geometry is a square as opposed to a sphere but the different shapes have different reactions to the forces (I think
           that is because of the different spots of contact isn relation to each shape) -->
-        <a-mixin dynamic-body enemy-collision geometry="primitive: cylinder; segmentsRadial: 6; height:0.125 radius: 0.5" id="projectile" visible="true" shooting material="color: red" radius="0.5"></a-mixin>
+        <a-mixin dynamic-body collision geometry="primitive: cylinder; segmentsRadial: 6; height:0.125 radius: 0.5" id="projectile" visible="true" shooting material="color: #FF2BDA" radius="0.5"></a-mixin>
       </a-asset>
-      <a-entity space-particles material="shader: particles; transparent: true; alphaTest: 0.5;" position="0 0 0"></a-entity>
+      <!-- <a-entity space-particles material="shader: particles; transparent: true; alphaTest: 0.5;" position="0 0 0"></a-entity> -->
+      <a-sky color = "#62F0FF"></a-sky>
 
       <!-- NOTE: for some reasont the collisions stopped working with bigger boxes (when height=width=3) -->
-      <a-box dynamic-body width="1" height="1" depth="1" position="0 0 -5" rotation="0 0 0" material="color: blue"></a-box>
-      <a-box dynamic-body width="1" height="1" depth="1" position="5 0 -5" rotation="0 0 0" material="color: blue"></a-box>
-      <a-box dynamic-body width="1" height="1" depth="1" position="-5 0 -5" rotation="0 0 0" material="color: blue"></a-box>
+      <a-box dynamic-body id="enemy1" width="3" height="3" depth="1" position="0 0 -5" rotation="0 0 0" material="color: #42FF37"></a-box>
+      <a-box dynamic-body id="enemy2" width="3" height="3" depth="1" position="5 0 -5" rotation="0 0 0" material="color: #42FF37"></a-box>
+      <a-box dynamic-body id="enemy3" width="3" height="3" depth="1" position="-5 0 -5" rotation="0 0 0" material="color: #42FF37"></a-box>
+      <script>
+        document.getElementById("enemy1").classList.add('enemy')
+        document.getElementById("enemy2").classList.add('enemy')
+        document.getElementById("enemy3").classList.add('enemy')
+      </script>
 
 
-      <a-box id="playerChar" dynamic-body player-controller  tile-pickup width="0.75" height="0.75" depth="0.75" position="0 5 0" rotation="0 0 0" color="#ffff00">
+      <a-box id="playerChar" dynamic-body player-controller  tile-pickup width="0.75" height="0.75" depth="0.75" position="0 0 0" rotation="0 0 0" color="#FFFF18">
         <a-box width="0.25" height="0.25" depth="0.25" position="0.4 0 0"  color="#ff0000"></a-box>
-        <a-cylinder id = "carriedTile" radius = "0.5" geometry="segmentsRadial: 6; height:0.125" position= " -1 0 0" rotation = " 0 0 90" visible = "false" material="color: red"></a-cylinder>
+        <a-cylinder id = "carriedTile" radius = "0.5" geometry="segmentsRadial: 6; height:0.125" position= " -1 0 0" rotation = " 0 0 90" visible = "false" material="color: #FF2BDA"></a-cylinder>
         <a-entity tile-select position="-1.2 0 0"></a-box>
         </a-box>
 
       <a-light color="white" position="-1 10 0"></a-light>
 
-      <a-entity id="floor" tile-floor="tileColumnCount: 15; tileRowCount: 15; tileRadius: 1" position="0 -2 0"></a-entity> 
+      <a-entity id="floor" material="color: #FD86FF" tile-floor="tileColumnCount: 15; tileRowCount: 15; tileRadius: 1" position="0 -2 0"></a-entity> 
       <a-entity id="ball-pool" dynamic-body pool__projectile="mixin: projectile; size: 15" position="0 -15 0"></a-entity>
     </a-scene>
   </body>
