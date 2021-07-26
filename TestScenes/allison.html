@@ -10,6 +10,7 @@
         <!-- mixin for pool of balls 
           NOTE: the geometry is a square as opposed to a sphere but the different shapes have different reactions to the forces (I think
           that is because of the different spots of contact isn relation to each shape) -->
+
         <a-mixin dynamic-body collision geometry="primitive: cylinder; segmentsRadial: 6; height:0.125 radius: 0.5" id="projectile" visible="true" shooting material="color: #FF2BDA" radius="0.5"></a-mixin>
       </a-asset>
       <!-- <a-entity space-particles material="shader: particles; transparent: true; alphaTest: 0.5;" position="0 0 0"></a-entity> -->
@@ -35,6 +36,7 @@
       <a-light color="white" position="-1 10 0"></a-light>
 
       <a-entity id="floor" material="color: #FD86FF" tile-floor="tileColumnCount: 15; tileRowCount: 15; tileRadius: 1" position="0 -2 0"></a-entity> 
+
       <a-entity id="ball-pool" dynamic-body pool__projectile="mixin: projectile; size: 15" position="0 -15 0"></a-entity>
     </a-scene>
   </body>
