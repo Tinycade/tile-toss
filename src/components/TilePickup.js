@@ -20,7 +20,7 @@ AFRAME.registerComponent('tile-pickup', {
             let numTiles = tileFloor.childNodes.length;
             for (let x = 0; x < numTiles; x+=1){
               let currentNode = tileFloor.childNodes[x];
-              if (currentNode.getAttribute("material").color == 'red') {
+              if (currentNode.getAttribute("material").color == '#FF2BDA') {
                 this.selectedTile = currentNode
                 break
               }

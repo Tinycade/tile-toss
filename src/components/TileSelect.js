@@ -26,7 +26,7 @@ AFRAME.registerComponent('tile-select', {
 
       // MAYBE IN THE FUTURE WE CALL A FUNCTION ON THE TILE COMPONENT
       // this is fine for now tho
-      currentNode.setAttribute("material", "color: white");
+      currentNode.setAttribute("material", "color: #FD86FF");
 
       currentNode.object3D.getWorldPosition(currentPos);
       let temp = playerPos.distanceToSquared(currentPos);
@@ -37,6 +37,6 @@ AFRAME.registerComponent('tile-select', {
       }
     }
     
-    if (this.closestNode) this.closestNode.setAttribute("material", "color: red");
+    if (this.closestNode) this.closestNode.setAttribute("material", "color: #FF2BDA");
   },
 });
